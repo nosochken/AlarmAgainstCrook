@@ -7,6 +7,9 @@ public class Mover : MonoBehaviour
 
     private Rigidbody2D _rigidbody;
 
+    private string _horizontalAxis = "Horizontal";
+    private string _verticalAxis = "Vertical";
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -23,8 +26,8 @@ public class Mover : MonoBehaviour
 
     private void Move()
     {
-        float horizontalMovement = Input.GetAxis("Horizontal");
-        float verticalMovement = Input.GetAxis("Vertical");
+        float horizontalMovement = Input.GetAxis(_horizontalAxis);
+        float verticalMovement = Input.GetAxis(_verticalAxis);
 
         Vector2 movement = new Vector2(horizontalMovement, verticalMovement).normalized;
         Vector2 newPosition = _rigidbody.position + movement * _speed * Time.fixedDeltaTime;

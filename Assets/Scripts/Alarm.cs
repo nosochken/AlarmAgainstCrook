@@ -24,8 +24,6 @@ public class Alarm : MonoBehaviour
 
     private void OnEnable()
     {
-        _audioSource.Play();
-
         _alarmHouse.CrookCameIn += IncreaseVolume;
         _alarmHouse.CrookCameOut += ReduceVolume;
     }
@@ -40,6 +38,8 @@ public class Alarm : MonoBehaviour
 
     private void IncreaseVolume()
     {
+        _audioSource.Play();
+
         StartCoroutine(SmoothlyChangeVolume(_maxVolume));
     }
 
@@ -58,5 +58,13 @@ public class Alarm : MonoBehaviour
 
             yield return null;
         }
+
+        StopPlayClipAtZeroVolume();
+    }
+
+    private void StopPlayClipAtZeroVolume()
+    {
+        if (_audioSource.volume == _minVolume)
+            _audioSource.Stop();
     }
 }
